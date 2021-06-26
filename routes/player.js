@@ -7,4 +7,6 @@ const router = express.Router();
 router.get('/editUserProfile', isAuth, playerController.getProfile);
 router.get('/dashboard', isAuth, playerController.getDashboard);
 router.use('/playGame', isAuth, playerController.getPlayGame);
+router.post('/postGamePlay', isAuth, playerController.postGamePlay);
+router.post('/postPlayerMove', isAuth, playerController.postPlayerMove)
 module.exports = router;

@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 //const sendgridTransport = require('nodemailer-sendgrid-transport');
 const { validationResult } = require('express-validator');// /check
 const User = require('../models/user');
+const GamePlay = require('../models/gamePlay');
 // const transporter = nodemailer.createTransport(sendgridTransport({
 //     auth: {
 //         api_key: process.env.API_KEY
@@ -25,12 +26,6 @@ exports.getLogin = (req, res, next) => {
     } else {
         message = null;
     }
-    //console.log(req.get('Cookie')//)
-    /*const isLoggedIn = req
-        .get('Cookie')
-        .split(';')[0]
-        .trim()
-        .split('=')[1] === 'true';*/
     res.render('login', {//auth
         path: '/login',
         pageTitle: 'Login',
@@ -67,9 +62,13 @@ exports.getSignup = (req, res, next) => {
         //isAuthenticated: false
     });
 };
+//*************************************************/
+//
+// This takes the user to the dashboard and provides
+// data for the players and current games
+//
+//*************************************************/
 exports.postLogin = (req, res, next) => {
-    //req.isLoggedin = true;
-    //res.setHeader('Set-Cookie', 'loggedIn=true; HttpOnly')
 
     const email = req.body.email;
     const password = req.body.password;
@@ -88,8 +87,8 @@ exports.postLogin = (req, res, next) => {
     }
 
     User.findOne({ email: email })
-        .then(user => {
-            if (!user) {
+        .then(currentUser => {
+            if (!currentUser) {
                 //req.flash('error', 'Invalid email or password')
                 //return res.redirect('/login');
                 return res.status(422).render('login', {//auth/
@@ -103,49 +102,143 @@ exports.postLogin = (req, res, next) => {
                     },
                     validationErrors: []//[{param: 'email', param: 'password'}]
                 });
-            }
-            bcrypt
-                .compare(password, user.password)
+            };
+            return bcrypt
+                .compare(password, currentUser.password)
                 .then(doMatch => {
                     if (doMatch) {
                         req.session.isLoggedIn = true;
-                        req.session.user = user;
-                        return req.session.save(err => {
-                            console.log(err);
-                            res.render('dashboard', {
-                                path: '/dashboard',
-                                pageTitle: 'Dashboard',
-                            });
-                            //res.redirect('/');//where to go?
-                        });
+                        req.session.user = currentUser;
+                        req.session.save();
+                        return currentUser;
+                        // req.session.save(err => {
+                        //     console.log(err);
+                        //     res.render('dashboard', {
+                        //         path: '/dashboard',
+                        //         pageTitle: 'Dashboard',
+                        //     });
+                        //     //res.redirect('/');//where to go?
+                        // });
                     }
                     //req.flash('error', 'Invalid email or password')
                     //res.redirect('/login');
-                    return res.status(422).render('login', {//auth/
-                        path: '/login',
-                        pageTitle: 'Login',
-                        errorMessage: 'Invalid email or password.',
-                        oldInput: {
-                            email: email,
-                            password: password
+                    else {
+                        return res.status(422).render('login', {//auth/
+                            path: '/login',
+                            pageTitle: 'Login',
+                            errorMessage: 'Invalid email or password.',
+                            oldInput: {
+                                email: email,
+                                password: password
 
-                        },
-                        validationErrors: []//[{param: 'email', param: 'password'}]
-                    });
+                            },
+                            validationErrors: []//[{param: 'email', param: 'password'}]
+                        });
+                    };
                 })
                 .catch(err => {
                     console.log(err);
                     res.redirect('login');// /
                 });
         })
-        //next();
-        .catch(err => //console.log(err)
-        {
+        .then(currentUser => {
+            const players = User.find();
+            return players;
+        })
+        .then(players => {
+            req.session.players = players;
+            req.session.save();
+            return players;
+        })
+        .then(players => {
+            const games = GamePlay.find({
+                $or: [
+                    { player1: req.session.user },
+                    { player2: req.session.user }
+                ]
+            });
+            return games;
+        })
+        .then(games => {
+            res.render('dashboard', {
+                games: games,
+                players: req.session.players,
+                user: req.session.user,
+                pageTitle: 'Dashboard',
+                path: '/dashboard'
+            });
+        })
+        .catch(err => {
             const error = new Error(err);
             error.httpStatusCode = 500;
             return next(error);
         });
+
+
 };
+//User.findOne({ email: email })//('609583ea3f161a723a332044')//("60947956b893eb8bf3e04661")
+//         .then(user => {
+//             if (!user) {
+//                 //req.flash('error', 'Invalid email or password')
+//                 //return res.redirect('/login');
+//                 return res.status(422).render('login', {//auth/
+//                     path: '/login',
+//                     pageTitle: 'Login',
+//                     errorMessage: 'Invalid email or password.',
+//                     oldInput: {
+//                         email: email,
+//                         password: password
+
+//                     },
+//                     validationErrors: []//[{param: 'email', param: 'password'}]
+//                 });
+//             }
+//             bcrypt
+//                 .compare(password, user.password)
+//                 .then(doMatch => {
+//                     if (doMatch) {
+//                         req.session.isLoggedIn = true;
+//                         req.session.user = user;
+//                         console.log(req.session);
+//                         return req.session.save(err => {
+//                             console.log(err);
+//                             res.render('dashboard', {
+//                                 path: '/dashboard',
+//                                 pageTitle: 'Dashboard',
+//                             });
+//                             //res.redirect('/');//where to go?
+//                         });
+//                     }
+//                     //req.flash('error', 'Invalid email or password')
+//                     //res.redirect('/login');
+//                     return res.status(422).render('login', {//auth/
+//                         path: '/login',
+//                         pageTitle: 'Login',
+//                         errorMessage: 'Invalid email or password.',
+//                         oldInput: {
+//                             email: email,
+//                             password: password
+
+//                         },
+//                         validationErrors: []//[{param: 'email', param: 'password'}]
+//                     });
+//                 })
+//                 .catch(err => {
+//                     console.log(err);
+//                     res.redirect('login');// /
+//                 });
+//         })
+//         //next();
+//         .catch(err => //console.log(err)
+//         {
+//             const error = new Error(err);
+//             error.httpStatusCode = 500;
+//             return next(error);
+//         });
+// };
+
+
+
 exports.postLogout = (req, res, next) => {
     req.session.destroy(err => {
         console.log(err);

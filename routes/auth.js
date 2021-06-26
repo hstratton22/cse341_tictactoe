@@ -24,6 +24,22 @@ router.post(
 router.post(
     '/signup',
     [
+    check('name')
+        .custom((value, { req }) => {
+            // if (value === 'test@test.com') {
+            //     throw new Error('This email address is forbidden');
+            // }
+            // return true;
+            return User.findOne({ name: value })
+                .then(userDoc => {
+                    if (userDoc) {
+                        return Promise.reject(
+                            'Username exists already. Please pick a different one.'
+                        );
+                    }
+                });
+        }),
+    
         check('email')
             .isEmail()
             .withMessage('Please enter a valid email.')
