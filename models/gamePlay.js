@@ -29,6 +29,7 @@ const gameSchema = new Schema({
         type: String,
         required: true
     },
+    clickCount: String,
     gameWinner: String, // Options: player1, player2, tie
     gameGrid: { 
         type: String,
