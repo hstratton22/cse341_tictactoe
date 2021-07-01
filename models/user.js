@@ -39,9 +39,11 @@ const userSchema = new Schema({
 
 
 });
+
 userSchema.methods.totalGamesPlayed = function()  {
 //calculate total from wins, losses, and draws
 }
+
 userSchema.methods.addGame = function(gamePlay)  {
     const currentGames = [...this.currentGames.games];
     currentGames.push({ gameId: gamePlay._id });
@@ -51,4 +53,5 @@ userSchema.methods.addGame = function(gamePlay)  {
       this.currentGames = updatedGames;
       return this.save();
 }
+
 module.exports = mongoose.model('User', userSchema);

@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 const gameSchema = new Schema({
     play: {
         type: Boolean,
@@ -29,6 +30,7 @@ const gameSchema = new Schema({
         type: String,
         required: true
     },
+    clickCount: String,
     gameWinner: String, // Options: player1, player2, tie
     gameGrid: { 
         type: String,
@@ -36,14 +38,6 @@ const gameSchema = new Schema({
     }
 });
 
-// gameSchema.methods.chooseSpace = function () {
-//     //Loop through gameGrid spaces and assign player to chosen space
-// }
-// gameSchema.methods.determineState = function () {
-//     //check for wins
-//     //loop through gameGrid and determine if all spaces are filled for draw
-// }
-// gameSchema.methods.drawBoard = function () {
-
-// }
 module.exports = mongoose.model('GamePlay', gameSchema);
+
+
