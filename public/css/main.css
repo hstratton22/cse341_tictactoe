@@ -84,6 +84,24 @@ body {
   overflow:hidden; 
   overflow-y:scroll;
 }
+.centered {
+  text-align: center;
+}
+.black-bg {
+  background-color:black;
+}
+.sbs {
+  display: inline-flex;
+  margin:1rem;
+  justify-content: space-evenly;
+  flex-flow: wrap;
+  text-align: center;
+  
+  
+}
+.white-bg {
+  background-color: white;
+}
 
 /* width */
 ::-webkit-scrollbar {

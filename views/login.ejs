@@ -1,43 +1,57 @@
 <%- include('includes/head.ejs') %>
-</head>
-<body>
-    <header>
-        <!--<a href="/">Enter User</a> | <a href="/users">Users</a><-->
-    </header>
+    </head>
+
     <body>
-        <div class="form-container">
-            <div class="main-form">
-                <div class="form-header">
-                    <h2 class="form-title">Login To Play!</h2>
+        <header>
+            <!--<a href="/">Enter User</a> | <a href="/users">Users</a><-->
+        </header>
 
-                    <% if (errorMessage) { %>
-                        <div class ="user-message user-message--error"><%= errorMessage %></div>
-                    <% } %>
+        <body>
+            <div class="form-container">
+                <div class="main-form">
+                    <div class="form-header">
+                        <h2 class="form-title">Login To Play!</h2>
+
+                        <% if (errorMessage) { %>
+                            <div class="user-message user-message--error">
+                                <%= errorMessage %>
+                            </div>
+                            <% } %>
+                    </div>
+
+                    <form class="" action="/login" method="POST"><!--novalidate method="POST"-->
+                        <div class="">
+                            <div class="">
+                                <label for="email"></label>
+                                <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
+                                    type="email" name="email" id="email" value="<%= oldInput.email %>"
+                                    placeholder="Email">
+                            </div>
+                            <div class="">
+                                <label for="password"></label>
+                                <input
+                                    class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>"
+                                    type="password" name="password" id="password" placeholder="Password">
+                            </div>
+                        </div>
+                        
+                            <div class="">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button class="btn btn-login" type="submit">Login</button>
+                            </div>
+                        </form>
+                        <div class="sbs">
+                            <div class="">
+                                <a href="/signup">Sign Up</a>
+                            </div>
+                            <div class="">
+                                <a href="/reset">Reset Password</a>
+                            </div>
+                        </div>
+                        
+                    
+
                 </div>
-
-                <form class="" action="/login" method="POST">
-                    <div>
-                        <div class="">
-                            <label for="email"></label>
-                            <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" type="email" name="email" id="email" value="<%= oldInput.email %>" placeholder="Email">
-                        </div>
-                        <div class="">
-                            <label for="password"></label>
-                            <input class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>" type="password" name="password" id="password" placeholder="Password">
-                        </div>
-                    </div>
-                    <div class="form-btn-container">
-                        <div class="">
-                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                            <button class="btn btn-login" type="submit">Login</button>
-                        </div>
-                        <div class="">
-                            <a href="/signup">Sign Up</a>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-  
-    <%- include('includes/end.ejs') %>
+                </div>
+                
+            <%- include('includes/end.ejs') %>

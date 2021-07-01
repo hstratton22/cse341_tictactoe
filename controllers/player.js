@@ -7,12 +7,6 @@ exports.getProfile = (req, res, next) => {
         path: '/editUserProfile'
     });
 };
-// exports.getDashboard = (req, res, next) => {
-//     res.render('dashboard', {
-//         pageTitle: 'Dashboard',
-//         path: '/dashboard'
-//     });
-// };
 
 exports.getDashboard = (req, res, next) => {
     //const gameDetails = {};

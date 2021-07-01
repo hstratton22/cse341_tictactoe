@@ -21,7 +21,7 @@
 /* Full-width input fields */
 
 input[type="email"], input[type="password"], input[type="password"], input[type=text] {
-    width: 400px;
+    max-width: 400px;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -51,7 +51,7 @@ form {
     margin: 4px 20px;
     cursor: pointer;
     border-radius: 12px;
-    width: 150px;
+    max-width: 150px;
     border: 2px solid black;
     opacity: 0.75
 }
