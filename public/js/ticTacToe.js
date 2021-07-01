@@ -1,21 +1,23 @@
-let player1 = true; 
+let player1Turn = true; 
 let play = true;
 let clickCount = 0;
 let gameWinner;
 let game = {
-    "1": document.getElementById("1").innerHTML,
-    "2": document.getElementById("2").innerHTML,
-    "3": document.getElementById("3").innerHTML,
-    "4": document.getElementById("4").innerHTML,
-    "5": document.getElementById("5").innerHTML,
-    "6": document.getElementById("6").innerHTML,
-    "7": document.getElementById("7").innerHTML,
-    "8": document.getElementById("8").innerHTML,
-    "9": document.getElementById("9").innerHTML
-};
+        "1": document.getElementById("1").innerHTML,
+        "2": document.getElementById("2").innerHTML,
+        "3": document.getElementById("3").innerHTML,
+        "4": document.getElementById("4").innerHTML,
+        "5": document.getElementById("5").innerHTML,
+        "6": document.getElementById("6").innerHTML,
+        "7": document.getElementById("7").innerHTML,
+        "8": document.getElementById("8").innerHTML,
+        "9": document.getElementById("9").innerHTML
+    };
+
 
 if (document.getElementById("game")) {
     //window.setTimeout(function(){ document.location.reload(true); }, 15000); // this is to refresh the page every 15 seconds
+    checkwin();
     player1Turn = document.getElementById("player1Turn").value;
     const user = document.getElementById("user").innerText;
     const player1 = document.getElementById("player1").value;
@@ -26,7 +28,6 @@ if (document.getElementById("game")) {
     }
     console.log(typeof clickcount);
     console.log('hello');
-
     if (user == player1){
         document.getElementById("playerNumber").innerHTML = "You are Player 1.";
         document.getElementById("playerSymbol").innerHTML = "Your symbol is: X";
@@ -34,6 +35,7 @@ if (document.getElementById("game")) {
         document.getElementById("playerNumber").innerHTML = "You are Player 2.";
         document.getElementById("playerSymbol").innerHTML = "Your symbol is: O";
     }
+
 
     function playerturn() {
         if (this.innerHTML === ''){
@@ -62,10 +64,10 @@ if (document.getElementById("game")) {
                     sendJson();
                 }
             }
-        }
-       
+        }        
     }
-} else {// this section is for anyone not logged in to play against others
+} else { // this section is for anyone not logged in to play against others
+
     function playerturn() {
         if (this.innerHTML == ''){
             if (play) {
@@ -145,6 +147,7 @@ function checkWinner(input, a, b, c){
     }
 }
 
+//changes the background color when the game is over
 function background(a, b, c){
     grid[a].classList.add("winner");
     grid[b].classList.add("winner");
@@ -168,7 +171,6 @@ function sendJson() {
     const gameGrid = JSON.stringify(game);
     document.getElementById("play").value = play;
     document.getElementById("player1Turn").value = player1Turn;
-    
     document.getElementById("gameWinner").value = gameWinner;
     document.getElementById("clickCount").value = clickCount;
     document.getElementById("gameGrid").value = gameGrid;

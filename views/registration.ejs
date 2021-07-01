@@ -6,8 +6,11 @@
     <body>
         <main class="ttt">
             <% if (errorMessage) { %>
-                <div class ="user-message user-message--error">
-                    <h2><%= errorMessage %></h2></div>
+                <div class="">
+                    <h2>
+                        <%= errorMessage %>
+                    </h2>
+                </div>
             <% } %>
             <form class="" action="/signup" method="POST">
                 <div class="">

@@ -13,36 +13,41 @@ exports.getProfile = (req, res, next) => {
 //         path: '/dashboard'
 //     });
 // };
+
 exports.getDashboard = (req, res, next) => {
-    const gameDetails = {};
+    //const gameDetails = {};
     User.find()
         .then(players => {
-            gameDetails.players = players
-            return gameDetails;
-        }).then(gameDetails => {
-            gameDetails.games = GamePlay.find({ player2: req.session.user });
-            return gameDetails;
-        }).then(gameDetails => {
-            //console.log(gameDetails.games);
-            res.render('dashboard', {
-                games: gameDetails.games,
-                players: gameDetails.players,
-                user: req.session.user,
-                pageTitle: 'Dashboard',
-                path: '/dashboard'
+            req.session.players = players;
+            req.session.save();
+            return players;  
+        }).then(players => {
+            console.log(req.session.user);
+            const games = GamePlay.find({$or:[ 
+                {player1: req.session.user},
+                {player2: req.session.user}
+            ]
             });
+            console.log('here dummy!')
+            return games;
+        }).then(games => {
+            console.log(games);
+            res.render('dashboard', { 
+                games: games,
+                players: req.session.players,
+                user: req.session.user,
+                pageTitle: 'Dashboard', 
+                path: '/dashboard' 
+            }); 
         })
         .catch(err => {
             const error = new Error(err);
             error.httpStatusCode = 500;
             return next(error);
-        });
-
-
+          });
 };
 
 exports.getPlayGame = (req, res, next) => {
-
     const gameDetails = {
         _id: req.body.gamePlay_id,
         play: req.body.play,
@@ -57,42 +62,42 @@ exports.getPlayGame = (req, res, next) => {
     };
     console.log('click count');
     console.log(gameDetails.clickCount);
-
-    if (gameDetails.play === 'false') {
+    if (gameDetails.play === 'false'){
         gameDetails.play = false;
-    } else if (gameDetails.play === 'true') {
+    } else if (gameDetails.play === 'true'){
         gameDetails.play = true;
     }
 
-    if (gameDetails.player1Turn === 'false') {
+    if (gameDetails.player1Turn === 'false'){
         gameDetails.player1Turn = false;
-    } else if (gameDetails.player1Turn === 'true') {
+    } else if (gameDetails.player1Turn === 'true'){
+
         gameDetails.player1Turn = true;
     }
 
     GamePlay.findById(
         gameDetails._id,
-        function (err, result) {
-            if (err) {
-                res.send(err)
+        function(err, result){
+            if(err){
+                res.send(err) 
+
             } else {
                 return result
             }
         }
     ).then(result => {
         console.log(result);
-        if (result.gameGrid) {
+        if (result.gameGrid){
             gameDetails.gameGrid = JSON.parse(result.gameGrid);
             console.log(gameDetails);
         }
-        res.render('playGame', {
+        res.render('playGame', { 
             user: req.session.user,
             gameDetails: gameDetails,
-            pageTitle: 'Play Game',
-            path: '/playGame'
+            pageTitle: 'Play Game', 
+            path: '/playGame' 
         });
     })
-
 };
 
 exports.postPlayerMove = (req, res, next) => {
@@ -112,17 +117,17 @@ exports.postPlayerMove = (req, res, next) => {
     console.log(gameDetails.clickCount);
 
     GamePlay.findByIdAndUpdate(
-        { _id: gameDetails._id },
-        {
-            play: gameDetails.play,
-            player1Turn: gameDetails.player1Turn,
-            clickCount: gameDetails.clickCount,
-            gameWinner: gameDetails.gameWinner,
-            gameGrid: gameDetails.gameGrid
-        },
-        function (err, result) {
-            if (err) {
-                res.send(err)
+        {_id: gameDetails._id},
+        {play: gameDetails.play,
+        player1Turn: gameDetails.player1Turn,
+        clickCount: gameDetails.clickCount,
+        gameWinner: gameDetails.gameWinner,
+        gameGrid: gameDetails.gameGrid},
+        {new: true},
+        function(err, result){
+            if(err){
+                res.send(err) 
+
             } else {
                 return result
             }
@@ -130,7 +135,7 @@ exports.postPlayerMove = (req, res, next) => {
     ).then(result => {
         console.log('move result');
         console.log(result);
-        if (result) {
+        if (result){
             gameDetails.gameGrid = JSON.parse(result.gameGrid);
         } else {
             gameDetails.gameGrid = {
@@ -145,14 +150,13 @@ exports.postPlayerMove = (req, res, next) => {
                 "9": ""
             };
         }
-        res.render('playGame', {
+        res.render('playGame', { 
             user: req.session.user,
             gameDetails: gameDetails,
-            pageTitle: 'Play Game',
-            path: '/playGame'
+            pageTitle: 'Play Game', 
+            path: '/playGame' 
         });
     })
-
 
 }
 
@@ -170,27 +174,27 @@ exports.postGamePlay = (req, res, next) => {
         gameWinner: req.body.gameWinner,
         gameGrid: req.body.gameGrid
     });
- 
+
     gamePlay.save()
         .then(result => {
             console.log('Created New Game');
             return result;
         }).then(result => {
-            const games = GamePlay.find({
-                $or: [
-                    { player1: req.session.user },
-                    { player2: req.session.user }
-                ]
+            const games = GamePlay.find({$or:[ 
+                {player1: req.session.user},
+                {player2: req.session.user}
+            ]
             });
             return games;
         }).then(games => {
-            res.render('dashboard', {
+            res.render('dashboard', { 
                 games: games,
                 players: req.session.players,
                 user: req.session.user,
-                pageTitle: 'Dashboard',
-                path: '/dashboard'
-            });
+                pageTitle: 'Dashboard', 
+                path: '/dashboard' 
+            });            
+
         })
         .catch(err => {
             const error = new Error(err);
