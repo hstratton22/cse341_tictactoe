@@ -1,89 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>
-    <%= pageTitle %>
-  </title>
-  <meta name="description" content="tic-tac-toe for CSE341 by JRolph, JStavast, HStratton">
-
-
-  <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
-  <!--<style>
-    .flex-container {
-      display: flex;
-      height: 100%;
-      flex-direction: column;
-      background-color: #f1f1f1;
-    }
-    
-    .first-half {
-      background-color: #f1f1f1;
-      height: 45%;
-      margin: 10px;
-      padding: 20px;
-      font-size: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .second-half {
-      background-color: #f1f1f1;
-      height: 100%;
-      margin: 10px;
-      padding: 20px;
-      font-size: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .flex-item {
-      background-color: #ffffff;
-      margin: 10px;
-      padding: 20px;
-      font-size: 30px;
-      height: 30%;
-      width: 350px;
-    }
-
-    .flex-item-2 {
-      background-color: #ffffff;
-      margin: 10px;
-      padding: 20px;
-      font-size: 30px;
-      height: 75%;
-      width: 100%;
-    }
-    
-</style><-->
+<%- include('includes/head.ejs') %>
 </head>
-
-<%- include('includes/nav.ejs') %>
-
-  <body>
-    <h1>Hello <%= user.name %></h1>
+<body>
+  <div class="main-background">
+      <h1>Hello <%= user.name %></h1>
     <div class="flex-container">
-      <!--<div class="first-half">
-        
+      <div class="first-half">
         <div class="flex-item">
-          John
+          Weather 65F Sunny
         </div>
         <div class="flex-item">
-          Sarah
+          <a class="btn-dash" href="/editUserProfile">Edit Profile</a>
         </div>
         <div class="flex-item">
-          Joe
+          <form action="/logout" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn-dash">Logout</button>
+        </form>
         </div>
-      </div>-->
+      </div>
+
       <div class="second-half">
         <div class="flex-item-2">
           <h2>Players</h2>
-          <ol>
+          <ol class="scroll">
             <% players.forEach(player => { %>
               <% if (player.name != user.name) { %>
               <li>
@@ -104,9 +43,10 @@
             <% }}); %>
           </ol>
         </div>
+        
         <div class="flex-item-2">
           <h2>Current Games</h2>
-          <ol>
+          <ol class="scroll">
             <% for (let i = 0; i < games.length; i++) { %>
               <% for (let x = 0; x < players.length; x++) { %>
           
@@ -166,6 +106,10 @@
             <% } %>
           </ol>
         </div>
-      </div>
+      </div> <!-- Second -->
+
     </div>
-    <%- include('includes/end.ejs') %>
+    </div>
+  </div>
+</body>
+<%- include('includes/end.ejs') %>
