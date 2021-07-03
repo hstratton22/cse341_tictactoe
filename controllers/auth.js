@@ -374,10 +374,10 @@ exports.postReset = (req, res, next) => {
                     subject: 'Password Reset',
                     html: `<p>You requested a password reset</p>
             <p>Click this <a href=
-            "http://localhost:5000/reset/${token}">link</a> to set a new password.</p>
+            "https://tictactoe-cse341.herokuapp.com/reset/${token}">link</a> to set a new password.</p>
             `
                 });//*****!!!change address before heroku push */
-                //"https://tictactoe-cse341.herokuapp.com/reset/${token}"
+                //"https://tictactoe-cse341.herokuapp.com/reset/${token}"//"http://localhost:5000/reset/${token}"
             })
             .catch(err => { //console.log(err); 
                 const error = new Error(err);
