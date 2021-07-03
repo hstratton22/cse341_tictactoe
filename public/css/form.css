@@ -69,3 +69,6 @@ form {
     list-style-type: none;
     text-decoration: none;
 }
+.ttt .no-border {
+    border: none;
+}

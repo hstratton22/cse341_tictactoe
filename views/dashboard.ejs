@@ -7,8 +7,11 @@
       <div class="first-half">
         <% if (weather) { %>
           <div class="flex-item">
+            <div class="weather">
             <!-- <img src="https://openweathermap.org/img/w/<%= weather.current.weather[0].icon %>.png" alt="weather icon"> -->
-            <p><%= weather.current.temp %>&deg : <%= weather.current.weather[0].description %></p>
+            <p><%= weather.current.temp %>&deg </p>
+            <p> <%= weather.current.weather[0].description %></p>
+          </div>
           </div>
           <% } %>
         

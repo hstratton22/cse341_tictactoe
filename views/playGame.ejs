@@ -33,7 +33,7 @@
                 <p id="playerSymbol"></p>
                 <p id="user" hidden><%= user._id %></p>
                 <a class="active" href="/dashboard">Back To Games</a>
-                <form hidden id="game" action="/postPlayerMove" method="POST">
+                <form class ="no-border" hidden id="game" action="/postPlayerMove" method="POST">
                     <input type ="hidden" id="_id" name="_id" value="<%= gameDetails._id %>">
                     <input type ="hidden" id="play" name="play" value="<%= gameDetails.play %>">
                     <input type ="hidden" id="player1Turn" name="player1Turn" value="<%= gameDetails.player1Turn %>">
