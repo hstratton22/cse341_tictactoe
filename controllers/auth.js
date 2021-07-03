@@ -1,11 +1,16 @@
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
+
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
+
 const { validationResult } = require('express-validator');// /check
 
 const User = require('../models/user');
 const GamePlay = require('../models/gamePlay');
+
+const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
+const fetch = require('node-fetch');
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {
@@ -38,14 +43,11 @@ exports.getLogin = (req, res, next) => {
             password: ''
         },
         validationErrors: []
-        //isAuthenticated: false//isLoggedIn//req.isLoggedIn//false
     });
 };
 
 
 exports.getSignup = (req, res, next) => {
-    //console.log(req.flash('error'));
-    //console.log(req.session.isLoggedIn);
     let message = req.flash('error');
     if (message.length > 0) {
         message = message[0];
@@ -58,13 +60,13 @@ exports.getSignup = (req, res, next) => {
         errorMessage: message,
         oldInput: {
             name: '',
-            country: '',
+            //country: '',
             email: '',
             password: '',
             confirmPassword: ''
         },
         validationErrors: []
-        //isAuthenticated: false
+
     });
 };
 
@@ -96,8 +98,7 @@ exports.postLogin = (req, res, next) => {
     User.findOne({ email: email })
         .then(currentUser => {
             if (!currentUser) {
-                //req.flash('error', 'Invalid email or password')
-                //return res.redirect('/login');
+
                 return res.status(422).render('login', {//auth/
                     path: '/login',
                     pageTitle: 'Login',
@@ -107,7 +108,7 @@ exports.postLogin = (req, res, next) => {
                         password: password
 
                     },
-                    validationErrors: []//[{param: 'email', param: 'password'}]
+                    validationErrors: []
                 });
             };
             return bcrypt
@@ -116,6 +117,8 @@ exports.postLogin = (req, res, next) => {
                     if (doMatch) {
                         req.session.isLoggedIn = true;
                         req.session.user = currentUser;
+                        req.session.latitude = req.body.latitude;
+                        req.session.longitude = req.body.longitude;
                         req.session.save();
                         return currentUser;
                     }
@@ -139,6 +142,18 @@ exports.postLogin = (req, res, next) => {
                 });
         })
         .then(currentUser => {
+            console.log('latitude');
+            console.log(req.session.latitude);
+            const apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${req.session.latitude}&lon=${req.session.longitude}&units=imperial&appid=${WEATHER_API_KEY}`;
+            return fetch(apiURL)
+                .then(response => response.json())
+                .then(jsObject => {
+                    req.session.weather = jsObject;
+                    req.session.save();
+                    return jsObject
+                });
+        })
+        .then(jsObject => {
             const players = User.find();
             return players;
         })
@@ -148,23 +163,20 @@ exports.postLogin = (req, res, next) => {
             return players;
         })
         .then(players => {
-            console.log('Auth.js/postLogin/players:', players);
             const games = GamePlay.find({
                 $or: [
                     { player1: req.session.user },
                     { player2: req.session.user }
                 ]
             });
-            console.log('games: ', games);
             return games;
         })
         .then(games => {
-            console.log('there dummy');
-            console.log(games);
             res.render('dashboard', {
                 games: games,
                 players: req.session.players,
                 user: req.session.user,
+                weather: req.session.weather,
                 pageTitle: 'Dashboard',
                 path: '/dashboard'
             });
@@ -174,7 +186,24 @@ exports.postLogin = (req, res, next) => {
             error.httpStatusCode = 500;
             return next(error);
         });
+
+    //////////////////////////////////////////////
+    // Need to add in the weather information here
+    // 1) Comment Out all this codeChange all country info to long/lat
+    //    A) Database
+    //    B) EJS Pages
+    //    C) Controller
+    // 2) Get long/lat from:
+    //    https://developer.mozilla.org/en-US/docs/Web/API/GeolocationCoordinates/longitude
+    //    This can be done anytime the user is logged into the dashboard and does not need
+    //    to be saved in the database, that way it changes as they travel.
+    // 4) show weather for current user in the dashboard
+    //////////////////////////////////////////////
+
 };
+
+
+
 
 
 
@@ -250,7 +279,7 @@ exports.postSignup = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     const name = req.body.name;
-    const country = req.body.country;
+    //const country = req.body.country;
     //const confirmPassword = req.body.confirmPassword;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -261,7 +290,7 @@ exports.postSignup = (req, res, next) => {
             errorMessage: errors.array()[0].msg,
             oldInput: {
                 name: name,
-                country: country,
+                //country: country,
                 email: email,
                 password: password,
                 confirmPassword: req.body.confirmPassword
@@ -281,7 +310,7 @@ exports.postSignup = (req, res, next) => {
         .then(hashedPassword => {
             const user = new User({
                 name: name,
-                country: country,
+                //country: country,
                 email: email,
                 password: hashedPassword,
 
@@ -354,7 +383,7 @@ exports.postReset = (req, res, next) => {
             "http://localhost:5000/reset/${token}">link</a> to set a new password.</p>
             `
                 });//*****!!!change address before heroku push */
-
+                //"https://tictactoe-cse341.herokuapp.com/reset/${token}"
             })
             .catch(err => { //console.log(err); 
                 const error = new Error(err);

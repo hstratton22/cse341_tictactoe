@@ -91,10 +91,11 @@ body {
   background-color:black;
 }
 .sbs {
-  display: inline-flex;
-  margin:1rem;
-  justify-content: space-evenly;
-  flex-flow: wrap;
+  display: flex;
+  flex-direction: column;
+  margin:.5rem;
+  /*justify-content: space-evenly;
+  flex-flow: wrap;*/
   text-align: center;
   
   
