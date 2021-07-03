@@ -16,8 +16,8 @@ const userSchema = new Schema({
         required: true
     },
     country: {
-        type: String,
-        required: true
+        type: String
+        //required: true
     },
     currentGames: {
         games: [
