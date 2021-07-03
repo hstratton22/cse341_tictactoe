@@ -125,7 +125,7 @@ body {
   background: #555;
 }
 @media (max-width: 768px) {
-  .first-half {
+  .first-half, .second-half {
     flex-direction: column;
   }
 }
