@@ -298,13 +298,7 @@ exports.postSignup = (req, res, next) => {
             validationErrors: errors.array()
         });
     }
-    // User.findOne({ name: name })
-    //     .then(nameTaken => {
-    //         if (nameTaken) {
-    //             req.flash('error', 'Name already exists. Pick a different one.')
-    //             return res.redirect('/registration');
-    //         }
-    //     })
+    
     bcrypt
         .hash(password, 12)
         .then(hashedPassword => {
@@ -321,12 +315,12 @@ exports.postSignup = (req, res, next) => {
             res.redirect('login');// /
             //re-enable before submitting
             //working but don't send lots right now
-            // return transporter.sendMail({
-            //     to: email,
-            //     from: 'str19023@byui.edu',
-            //     subject: 'Signup succeeded',
-            //     html: '<h1>You successfully signed up!</h1>'
-            // });
+            return transporter.sendMail({
+                to: email,
+                from: 'str19023@byui.edu',
+                subject: 'Signup succeeded',
+                html: '<h1>You successfully signed up!</h1>'
+            });
         })
         .catch(err => {
             //console.log(err);
