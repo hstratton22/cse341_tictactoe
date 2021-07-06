@@ -46,7 +46,10 @@ exports.postUpdateProfile = (req, res, next) => {
     User.findByIdAndUpdate(userId, { name: name }, { new: true })
 
         .then(result => {
-            res.redirect('/login');//dashboard
+            // console.log("inside find", req.session.user);
+            // console.log("result", result)
+            req.session.user.name = result.name
+            res.redirect('/dashboard');
         })
         .catch(err => {
             {
