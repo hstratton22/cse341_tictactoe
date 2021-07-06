@@ -1,9 +1,11 @@
 body {
   background-image: url("https://st2.depositphotos.com/31939724/46264/v/600/depositphotos_462641316-stock-illustration-tic-tac-toe-game-pattern.jpg"); 
   background-size: 300px 300px;
-  font-family: 'Brush Script MT', cursive;
+  font-family: 'Otomanopee One', sans-serif;
   margin: 0px;
 }
+
+button {font-family: 'Otomanopee One', sans-serif;}
 
 .main-background {
   background-color: #ffffff;
@@ -91,16 +93,7 @@ body {
 .black-bg {
   background-color:black;
 }
-.sbs {
-  display: flex;
-  flex-direction: column;
-  margin:.5rem;
-  /*justify-content: space-evenly;
-  flex-flow: wrap;*/
-  text-align: center;
-  
-  
-}
+
 .white-bg {
   background-color: white;
 }

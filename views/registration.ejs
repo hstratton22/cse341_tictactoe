@@ -16,7 +16,7 @@
                 </div>
 
                 <form class="" action="/signup" method="POST">
-                    <div class="">
+                    <div class="form-input-container">
                         <div class="">
                             <label for="name"></label>
                             <input class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %>" type="text" name="name" id="name" value="<%= oldInput.name %>" placeholder="Username">
@@ -39,8 +39,10 @@
                             <input class="<%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %>" type="password" name="confirmPassword" id="confirmPassword" value="<%= oldInput.confirmPassword %>" placeholder="Confirm Password">
                         </div>
                     </div>
-                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                    <button class="btn btn-signup" type="submit">Sign Up</button>
+                    <div class="form-btn-container">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button class="btn btn-signup" type="submit">Sign Up</button>
+                    </div>
                 </form>
             </div>
         </div>
