@@ -1,39 +1,57 @@
 <%- include('includes/head.ejs') %>
-</head>
-<body>
-  <div class="main-background">
-    <div class="nav">
-      <a href="/dashboard" class="nav" style="border-radius: 0px; font-size: 1em;">Dashboard</a>
-    </div> 
-    <div class="form-container">
-      <div class="main-form">
-        <div class="form-header">
-          <h2 class="form-title">Edit Profile</h2>
-      </div>
+  </head>
 
-        <form action="/action_page">
-          <div class="centered">
-              <label for="name"><b></b></label>
-              <input type="text" placeholder="Enter name" name="name" required>
-              
-              <!--<label for="country"></label>
-              <input class="" type="text" name="country" id="country" placeholder="Zip">-->
-              
-              <label for="email"><b></b></label>
-              <input type="text" placeholder="Enter Email" name="email" required>
-                  
-              <label for="psw"><b></b></label>
-              <input type="password" placeholder="Enter Password" name="psw" required>
-              
-              <label for="psw"><b></b></label>
-              <input type="password" placeholder="Confirm Password" name="psw" required>
-          </div>                    
-          <div class="form-btn-container">
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button type="submit" class="btn save-btn">Save</button>
-            <!--<button type="button" class="btn cancel-btn">Cancel</button>-->
+  <body>
+    <div class="main-background">
+      <div class="nav">
+        <a href="/dashboard" class="nav" style="border-radius: 0px; font-size: 1em;">Dashboard</a>
+      </div>
+      <div class="form-container">
+        <div class="main-form">
+          <div class="form-header">
+            <h2 class="form-title">Edit Profile</h2>
           </div>
-        </form>
-      </div> 
-    </div>
-  </div>
+          <% if (errorMessage) { %>
+            <div class="user-message user-message--error">
+              <%= errorMessage %>
+            </div>
+            <% } %>
+
+              <form action="/updateProfile" method="POST">
+                <div class="centered">
+                  <div class="">
+                    <label for="name"></label>
+                    <input class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %>" type="text"
+                      name="name" id="name" value="<%= oldInput.name %>" placeholder=" New Username">
+                  </div>
+                  <!--<div class="">
+                    <label for="email"></label>
+                    <input class="< % = validationErrors.find(e => e.param === 'email') ? 'invalid' : '' % >" type="email"
+                      name="email" id="email" value="< %= oldInput.email % >" placeholder="Email">
+                  </div>
+                  <div class="">
+                    <label for="country"></label>
+                    <input class="< %= validationErrors.find(e => e.param === 'country') ? 'invalid' : '' % >" type="text"
+                      name="country" id="country" value="< %= oldInput.country % >" placeholder="Zip">
+                  </div>
+
+                  <div class="">
+                    <label for="password"></label>
+                    <input class="< %= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' % >"
+                      type="password" name="password" id="password" value="< %= oldInput.password % >"
+                      placeholder="Password">
+                  </div>
+                  <div class="">
+                    <label for="confirmPassword"></label>
+                    <input class="< %= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' % >"
+                      type="password" name="confirmPassword" id="confirmPassword"
+                      value="< %= oldInput.confirmPassword % >" placeholder="Confirm Password">
+                  </div>-->
+                </div>
+                <!--<div class="form-btn-container">-->
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="btn btn-signup" type="submit">Save</button>
+              </form>
+
+        </div>
+      </div>

@@ -1,11 +1,61 @@
 const User = require('../models/user');
 const GamePlay = require('../models/gamePlay');
+const { validationResult } = require('express-validator');
 
 exports.getProfile = (req, res, next) => {
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
     res.render('editUserProfile', {
         pageTitle: 'Edit Profile',
-        path: '/editUserProfile'
+        path: '/editUserProfile',
+        errorMessage: message,
+        oldInput: {
+            name: '',
+        },
+        validationErrors: []
     });
+};
+exports.postUpdateProfile = (req, res, next) => {
+    const name = req.body.name;
+    // const userId = req.body._id;
+    const userId = req.session.user._id;
+    console.log("id", userId);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        console.log(errors.array());
+        return res.status(422).render('editUserProfile', {
+            pageTitle: 'Edit Profile',
+            path: '/editUserProfile',
+            errorMessage: errors.array()[0].msg,
+            oldInput: {
+                name: name,
+            },
+            validationErrors: errors.array()
+        });
+    }
+    // User.findById(userId)
+    //     .then(user => {
+    //         user.name = name;
+    //         console.log("inside FindById", name);
+    //         return user.save();
+    //     })
+    User.findByIdAndUpdate(userId, { name: name }, { new: true })
+
+        .then(result => {
+            res.redirect('/login');//dashboard
+        })
+        .catch(err => {
+            {
+                const error = new Error(err);
+                error.httpStatusCode = 500;
+                return next(error);
+            }
+        })
+
 };
 
 exports.getDashboard = (req, res, next) => {
@@ -40,9 +90,9 @@ exports.getDashboard = (req, res, next) => {
             error.httpStatusCode = 500;
             return next(error);
         });
-        //////////////////////////////////////////////
-        // Need to add in the weather information here
-        //////////////////////////////////////////////
+    //////////////////////////////////////////////
+    // Need to add in the weather information here
+    //////////////////////////////////////////////
 };
 // exports.postDashboard = (req, res, next) => {
 //     //const gameDetails = {};
@@ -241,8 +291,8 @@ exports.postGamePlay = (req, res, next) => {
             error.httpStatusCode = 500;
             return next(error);
         });
-        //////////////////////////////////////////////
-        // Need to add in the weather information here
-        //////////////////////////////////////////////
+    //////////////////////////////////////////////
+    // Need to add in the weather information here
+    //////////////////////////////////////////////
 }
 
