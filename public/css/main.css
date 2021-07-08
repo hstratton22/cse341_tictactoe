@@ -18,7 +18,8 @@ button {font-family: 'Otomanopee One', sans-serif;}
 }
 
 .nav {
-  margin-right: 80%;
+  margin-right: 40%;
+  width: 50%;
 }
 
 .flex-container {
@@ -56,7 +57,7 @@ button {font-family: 'Otomanopee One', sans-serif;}
   margin: 10px;
   font-size: 30px;
   height: 60px;
-  width: 350px;
+  width: 100%;
 }
 
 .flex-item-2 {
@@ -65,7 +66,7 @@ button {font-family: 'Otomanopee One', sans-serif;}
   padding: 20px;
   font-size: 25px;
   height: 75%;
-  width: 100%;
+  width: 85%;
 }
 
 .user-message--error {
@@ -117,8 +118,25 @@ button {font-family: 'Otomanopee One', sans-serif;}
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
 @media (max-width: 768px) {
   .first-half, .second-half {
     flex-direction: column;
+  }
+
+  .flex-item-2 {
+    width: 90%;
+  }
+
+  .nav {
+    margin-right: 0%;
+    width: 100%;
+  }
+  
+}
+
+@media (max-width: 450px) {
+  .flex-item-2 {
+    width: 85%;
   }
 }
