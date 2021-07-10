@@ -141,7 +141,7 @@ exports.postLogin = (req, res, next) => {
                     };
                 })
                 .catch(err => {
-                    console.log(err);
+                    //console.log(err);
                     res.redirect('login');// /
                 });
         })
@@ -214,7 +214,7 @@ exports.postSignup = (req, res, next) => {
     //const confirmPassword = req.body.confirmPassword;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.log(errors.array());
+        //console.log(errors.array());
         return res.status(422).render('registration', { //auth/
             path: '/signup',
             pageTitle: 'Signup',

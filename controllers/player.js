@@ -131,7 +131,7 @@ exports.getPlayGame = (req, res, next) => {
     ).then(result => {
         if (result.gameGrid) {
             gameDetails.gameGrid = JSON.parse(result.gameGrid);
-            console.log(gameDetails);
+            //console.log(gameDetails);
         }
         res.render('playGame', {
             user: req.session.user,
@@ -176,8 +176,8 @@ exports.postPlayerMove = (req, res, next) => {
             }
         }
     ).then(result => {
-        console.log('move result');
-        console.log(result);
+        //console.log('move result');
+        //console.log(result);
         if (result) {
             gameDetails.gameGrid = JSON.parse(result.gameGrid);
         } else {
@@ -216,7 +216,7 @@ exports.postGamePlay = (req, res, next) => {
         gameWinner: req.body.gameWinner,
         gameGrid: req.body.gameGrid
     });
-    console.log('player.js/postGamePlay:', gamePlay);
+    //console.log('player.js/postGamePlay:', gamePlay);
     gamePlay.save()
         .then(result => {
             //console.log('Created New Game');
