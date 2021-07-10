@@ -13,7 +13,6 @@
   border-radius: 0px;
   border: 2px solid black;
 }
-
 a.btn-dash {
   padding-top: 10px;
 }
@@ -25,7 +24,6 @@ a.btn-dash {
 p {
   margin: 5px 0px;
 }
-
 .weather {
   display:flex;
   flex-direction: row;
@@ -75,50 +73,41 @@ input[type="submit"] {
 
 }
 
-/* .flex-container {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    background-color: #f1f1f1;
-  }
-  
-  .first-half {
-    background-color: #f1f1f1;
-    height: 45%;
-    margin: 10px;
-    padding: 20px;
-    font-size: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+input[type="submit"] {
+  background-color: rgb(255, 255, 255);
+  height: 60px;
+  width: 90%;
+  opacity: 1;
+  padding: 0px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 30px;
+  margin: 0px 0px;
+  cursor: pointer;
+  border-radius: 0px;
+  border: 1px solid black;
+}
+
+
+@media only screen and (max-width: 940px) {
+  p {
+      font-size: 25px;
   }
 
-  .second-half {
-    background-color: #f1f1f1;
-    height: 100%;
-    margin: 10px;
-    padding: 20px;
-    font-size: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  h2 {
+    font-size: 35px;
   }
 
-  .flex-item {
-    background-color: #ffffff;
-    margin: 10px;
-    padding: 20px;
-    font-size: 30px;
-    height: 30%;
-    width: 350px;
+}
+
+@media only screen and (max-width: 768px) {
+  p {
+      font-size: 25px;
   }
 
-  .flex-item-2 {
-    background-color: #ffffff;
-    margin: 10px;
-    padding: 20px;
+  h2 {
     font-size: 30px;
-    height: 75%;
-    width: 100%;
   }
-   */
+
+}

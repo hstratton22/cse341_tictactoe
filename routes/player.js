@@ -1,4 +1,3 @@
-//const path = require('path');
 const express = require('express');
 const { check, body } = require('express-validator');
 const playerController = require('../controllers/player');
@@ -27,4 +26,5 @@ router.get('/dashboard', isAuth, playerController.getDashboard);
 router.use('/playGame', isAuth, playerController.getPlayGame);
 router.post('/postGamePlay', isAuth, playerController.postGamePlay);
 router.post('/postPlayerMove', isAuth, playerController.postPlayerMove)
+
 module.exports = router;

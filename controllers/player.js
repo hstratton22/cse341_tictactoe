@@ -21,12 +21,11 @@ exports.getProfile = (req, res, next) => {
 };
 exports.postUpdateProfile = (req, res, next) => {
     const name = req.body.name;
-    // const userId = req.body._id;
     const userId = req.session.user._id;
-    console.log("id", userId);
+    //console.log("id", userId);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.log(errors.array());
+        //console.log(errors.array());
         return res.status(422).render('editUserProfile', {
             pageTitle: 'Edit Profile',
             path: '/editUserProfile',
@@ -37,12 +36,7 @@ exports.postUpdateProfile = (req, res, next) => {
             validationErrors: errors.array()
         });
     }
-    // User.findById(userId)
-    //     .then(user => {
-    //         user.name = name;
-    //         console.log("inside FindById", name);
-    //         return user.save();
-    //     })
+
     User.findByIdAndUpdate(userId, { name: name }, { new: true })
 
         .then(result => {
@@ -69,7 +63,7 @@ exports.getDashboard = (req, res, next) => {
             req.session.save();
             return players;
         }).then(players => {
-            console.log(req.session.user);
+            //console.log(req.session.user);
             const games = GamePlay.find({
                 $or: [
                     { player1: req.session.user },
@@ -78,7 +72,7 @@ exports.getDashboard = (req, res, next) => {
             });
             return games;
         }).then(games => {
-            console.log(games);
+            //console.log(games);
             res.render('dashboard', {
                 games: games,
                 players: req.session.players,
@@ -97,47 +91,6 @@ exports.getDashboard = (req, res, next) => {
     // Need to add in the weather information here
     //////////////////////////////////////////////
 };
-// exports.postDashboard = (req, res, next) => {
-//     //const gameDetails = {};
-//     console.log('player/postDashboard:');
-//     const location = {
-//         location: req.body
-//     };
-
-//     console.log('player/postDashboard:', location);
-//     User.find()
-//         .then(players => {
-//             req.session.players = players;
-//             req.session.save();
-//             return players;  
-//         }).then(players => {
-//             const games = GamePlay.find({$or:[ 
-//                 {player1: req.session.user},
-//                 {player2: req.session.user}
-//             ]
-//             });
-//             return games;
-//         }).then(games => {
-//             res.render('dashboard', { 
-//                 games: games,
-//                 players: req.session.players,
-//                 user: req.session.user,
-//                 pageTitle: 'Dashboard', 
-//                 path: '/dashboard' 
-//             }); 
-//         })
-//         .catch(err => {
-//             const error = new Error(err);
-//             error.httpStatusCode = 500;
-//             return next(error);
-//           });
-
-
-//         //////////////////////////////////////////////
-//         // Need to add in the weather information here
-//         //////////////////////////////////////////////
-// };
-
 
 exports.getPlayGame = (req, res, next) => {
     const gameDetails = {
@@ -146,14 +99,12 @@ exports.getPlayGame = (req, res, next) => {
         player1Turn: req.body.player1Turn,
         player1: req.body.player1,
         player2: req.body.player2,
-        //player1Country: req.body.player1Country,
-        //player2Country: req.body.player2Country,
         clickCount: req.body.clickCount,
         gameWinner: req.body.gameWinner,
         gameGrid: req.body.gameGrid
     };
-    console.log('click count');
-    console.log(gameDetails.clickCount);
+    //console.log('click count');
+    //console.log(gameDetails.clickCount);
     if (gameDetails.play === 'false') {
         gameDetails.play = false;
     } else if (gameDetails.play === 'true') {
@@ -192,7 +143,6 @@ exports.getPlayGame = (req, res, next) => {
 };
 
 exports.postPlayerMove = (req, res, next) => {
-    console.log('HIT ME THRICE!!!')
     const gameDetails = {
         _id: req.body._id,
         play: req.body.play,
@@ -203,9 +153,9 @@ exports.postPlayerMove = (req, res, next) => {
         gameWinner: req.body.gameWinner,
         gameGrid: req.body.gameGrid
     };
-    console.log(typeof gameDetails.clickCount);
+    //console.log(typeof gameDetails.clickCount);
 
-    console.log(gameDetails.clickCount);
+    //console.log(gameDetails.clickCount);
 
     GamePlay.findByIdAndUpdate(
         { _id: gameDetails._id },
@@ -243,12 +193,13 @@ exports.postPlayerMove = (req, res, next) => {
                 "9": ""
             };
         }
-        res.render('playGame', {
-            user: req.session.user,
-            gameDetails: gameDetails,
-            pageTitle: 'Play Game',
-            path: '/playGame'
-        });
+        // res.render('playGame', {
+        //     user: req.session.user,
+        //     gameDetails: gameDetails,
+        //     pageTitle: 'Play Game',
+        //     path: '/playGame'
+        // });
+        res.redirect('dashboard');
     })
 
 }
@@ -265,10 +216,10 @@ exports.postGamePlay = (req, res, next) => {
         gameWinner: req.body.gameWinner,
         gameGrid: req.body.gameGrid
     });
-
+    console.log('player.js/postGamePlay:', gamePlay);
     gamePlay.save()
         .then(result => {
-            console.log('Created New Game');
+            //console.log('Created New Game');
             return result;
         }).then(result => {
             const games = GamePlay.find({
@@ -294,8 +245,5 @@ exports.postGamePlay = (req, res, next) => {
             error.httpStatusCode = 500;
             return next(error);
         });
-    //////////////////////////////////////////////
-    // Need to add in the weather information here
-    //////////////////////////////////////////////
 }
 
