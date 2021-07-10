@@ -32,14 +32,14 @@ if (document.getElementById("game")) {
 
     function playerturn() {
         if (this.innerHTML === ''){
-            console.log('hola mi amigo');
-            console.log(player1Turn);
+            //console.log('hola mi amigo');
+            //console.log(player1Turn);
             if (play) {
                 if (player1Turn == 'true' && player1 == user) {
-                    console.log(game);
+                    //console.log(game);
                     this.innerHTML = 'X';
                     game[this.id] = this.innerHTML;
-                    console.log(game);
+                    //console.log(game);
                     player1Turn = 'false';
                     checkwin();
                     sendJson();
@@ -47,7 +47,7 @@ if (document.getElementById("game")) {
                 if (player2 == user && player1Turn == 'false') {
                     this.innerHTML = 'O';
                     game[this.id] = this.innerHTML;
-                    console.log(game);
+                    //console.log(game);
                     player1Turn = 'true';
                     checkwin();
                     sendJson();
@@ -63,13 +63,13 @@ if (document.getElementById("game")) {
                 if (player1Turn) {
                     this.innerHTML = 'X';
                     game[this.id] = this.innerHTML;
-                    console.log(game);
+                    //console.log(game);
                     player1Turn = false;
                 }
                 else {
                     this.innerHTML = 'O';
                     game[this.id] = this.innerHTML;
-                    console.log(game);
+                    //console.log(game);
                     player1Turn = true;
                 }
             }
@@ -80,7 +80,7 @@ if (document.getElementById("game")) {
 
 function checkwin() {
     grid = document.querySelectorAll('#myTable td');
-    console.log(grid);
+    //console.log(grid);
 
     // check vert
     let i = 0;

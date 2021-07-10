@@ -6,5 +6,5 @@ if ('geolocation' in navigator) {
     document.getElementById("longitude").value = position.coords.longitude;
     });
 } else {
-    console.log('geolocation not available');
+    //console.log('geolocation not available');
 }
