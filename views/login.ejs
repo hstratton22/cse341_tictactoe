@@ -29,10 +29,12 @@
                     </div>
 
                     <div class="form-btn-container">
+                        <label for="login">
                         <input type="hidden" id="latitude" name="latitude" value="">
                         <input type="hidden" id="longitude" name="longitude" value="">
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <button class="btn btn-login" type="submit">Login</button>
+                        <button name="login" class="btn btn-login" type="submit">Login</button>
+                    </label>
 
                         <div class="sbs">
                             <a href="/signup">Sign Up</a>
