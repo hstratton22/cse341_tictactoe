@@ -18,34 +18,34 @@
                 <form action="/signup" method="POST">
                     <div>
                         <div>
-                            <label for="name"></label>
+                            <label for="name">Username
                             <input class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %>"
-                                type="text" name="name" id="name" value="<%= oldInput.name %>" placeholder="Username">
+                                type="text" name="name" id="name" value="<%= oldInput.name %>" ></label>
                         </div>
                         <div>
-                            <label for="email"></label>
+                            <label for="email">Email
                             <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
-                                type="email" name="email" id="email" value="<%= oldInput.email %>" placeholder="Email">
+                                type="email" name="email" id="email" value="<%= oldInput.email %>" ></label>
                         </div>
-                        <div>
+                        <!--<div>
                             <label for="country"></label>
                             <input class="<%= validationErrors.find(e => e.param === 'country') ? 'invalid' : '' %>"
                                 type="text" name="country" id="country" value="<%= oldInput.country %>"
                                 placeholder="Zip">
-                        </div>
+                        </div>-->
 
                         <div>
-                            <label for="password"></label>
+                            <label for="password">Password
                             <input class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>"
                                 type="password" name="password" id="password" value="<%= oldInput.password %>"
-                                placeholder="Password">
+                                ></label>
                         </div>
                         <div>
-                            <label for="confirmPassword"></label>
+                            <label for="confirmPassword">Confirm Password
                             <input
                                 class="<%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %>"
                                 type="password" name="confirmPassword" id="confirmPassword"
-                                value="<%= oldInput.confirmPassword %>" placeholder="Confirm Password">
+                                value="<%= oldInput.confirmPassword %>" ></label>
                         </div>
                     </div>
                     <div class="form-btn-container">
