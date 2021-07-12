@@ -1,4 +1,3 @@
-//id, name, email, country, wins, losses, draws, totalGamesPlayed  
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const userSchema = new Schema({
@@ -14,10 +13,6 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
-    },
-    country: {
-        type: String
-        //required: true
     },
     currentGames: {
         games: [
@@ -40,18 +35,18 @@ const userSchema = new Schema({
 
 });
 
-userSchema.methods.totalGamesPlayed = function()  {
-//calculate total from wins, losses, and draws
+userSchema.methods.totalGamesPlayed = function () {
+    //calculate total from wins, losses, and draws
 }
 
-userSchema.methods.addGame = function(gamePlay)  {
+userSchema.methods.addGame = function (gamePlay) {
     const currentGames = [...this.currentGames.games];
     currentGames.push({ gameId: gamePlay._id });
     const updatedGames = {
         games: currentGames
-      };
-      this.currentGames = updatedGames;
-      return this.save();
+    };
+    this.currentGames = updatedGames;
+    return this.save();
 }
 
 module.exports = mongoose.model('User', userSchema);

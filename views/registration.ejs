@@ -1,8 +1,5 @@
 <%- include('includes/head.ejs') %>
-<body>
-    <header>
-        <!--<a href="/">Enter User</a> | <a href="/users">Users</a><-->
-    </header>
+
     <body>
         <div class="form-container">
             <div class="main-form">
@@ -10,33 +7,45 @@
                     <h2 class="form-title">Sign Up!</h2>
 
                     <% if (errorMessage) { %>
-                        <div class ="user-message user-message--error">
-                            <h2><%= errorMessage %></h2></div>
-                    <% } %>
+                        <div class="user-message user-message--error">
+                            <h2>
+                                <%= errorMessage %>
+                            </h2>
+                        </div>
+                        <% } %>
                 </div>
 
-                <form class="" action="/signup" method="POST">
-                    <div class="form-input-container">
-                        <div class="">
+                <form action="/signup" method="POST">
+                    <div>
+                        <div>
                             <label for="name"></label>
-                            <input class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %>" type="text" name="name" id="name" value="<%= oldInput.name %>" placeholder="Username">
+                            <input class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %>"
+                                type="text" name="name" id="name" value="<%= oldInput.name %>" placeholder="Username">
                         </div>
-                        <div class="">
+                        <div>
                             <label for="email"></label>
-                            <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" type="email" name="email" id="email" value="<%= oldInput.email %>" placeholder="Email">
+                            <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
+                                type="email" name="email" id="email" value="<%= oldInput.email %>" placeholder="Email">
                         </div>
-                        <div class="">
+                        <div>
                             <label for="country"></label>
-                            <input class="<%= validationErrors.find(e => e.param === 'country') ? 'invalid' : '' %>" type="text" name="country" id="country" value="<%= oldInput.country %>" placeholder="Zip">
+                            <input class="<%= validationErrors.find(e => e.param === 'country') ? 'invalid' : '' %>"
+                                type="text" name="country" id="country" value="<%= oldInput.country %>"
+                                placeholder="Zip">
                         </div>
-                    
-                        <div class="">
+
+                        <div>
                             <label for="password"></label>
-                            <input class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>" type="password" name="password" id="password" value="<%= oldInput.password %>" placeholder="Password">
+                            <input class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>"
+                                type="password" name="password" id="password" value="<%= oldInput.password %>"
+                                placeholder="Password">
                         </div>
-                        <div class="">
+                        <div>
                             <label for="confirmPassword"></label>
-                            <input class="<%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %>" type="password" name="confirmPassword" id="confirmPassword" value="<%= oldInput.confirmPassword %>" placeholder="Confirm Password">
+                            <input
+                                class="<%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %>"
+                                type="password" name="confirmPassword" id="confirmPassword"
+                                value="<%= oldInput.confirmPassword %>" placeholder="Confirm Password">
                         </div>
                     </div>
                     <div class="form-btn-container">
@@ -46,5 +55,5 @@
                 </form>
             </div>
         </div>
-   
-    <%- include('includes/end.ejs') %>
+
+        <%- include('includes/end.ejs') %>

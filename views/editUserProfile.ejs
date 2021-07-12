@@ -7,7 +7,9 @@
         <a href="/dashboard" class="nav" style="border-radius: 0px; font-size: .75em;">Dashboard</a>
       </div>
       <div class="">
+        <!--form-container-->
         <div class="" style="height: 400px;">
+          <!--main-form-->
           <div class="form-header">
             <h2 class="form-title">Edit Profile</h2>
           </div>
@@ -24,29 +26,6 @@
                     <input class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %>" type="text"
                       name="name" id="name" value="<%= oldInput.name %>" placeholder=" New Username">
                   </div>
-                  <!--<div class="">
-                    <label for="email"></label>
-                    <input class="< % = validationErrors.find(e => e.param === 'email') ? 'invalid' : '' % >" type="email"
-                      name="email" id="email" value="< %= oldInput.email % >" placeholder="Email">
-                  </div>
-                  <div class="">
-                    <label for="country"></label>
-                    <input class="< %= validationErrors.find(e => e.param === 'country') ? 'invalid' : '' % >" type="text"
-                      name="country" id="country" value="< %= oldInput.country % >" placeholder="Zip">
-                  </div>
-
-                  <div class="">
-                    <label for="password"></label>
-                    <input class="< %= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' % >"
-                      type="password" name="password" id="password" value="< %= oldInput.password % >"
-                      placeholder="Password">
-                  </div>
-                  <div class="">
-                    <label for="confirmPassword"></label>
-                    <input class="< %= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' % >"
-                      type="password" name="confirmPassword" id="confirmPassword"
-                      value="< %= oldInput.confirmPassword % >" placeholder="Confirm Password">
-                  </div>-->
                 </div>
                 <!--<div class="form-btn-container">-->
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">

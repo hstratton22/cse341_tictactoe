@@ -1,11 +1,10 @@
 .main-form {
     background-color: #f2f2f2;
-    width: 800px;
+    width: 800px;/*40%;*/
     padding: 40px;
     border-radius: 25px;
     border: 2px solid black;
 }
-
 /* Container around the rounded form container */
 .form-container {
     height: 800px;  /* Change this for all sizes */
@@ -19,10 +18,10 @@
     text-align: center;
     font-size: xx-large;
 }
-
-/* Inputs */
+/*Inputs*/
 input[type="email"], input[type="password"], input[type="password"], input[type=text] {
-    width: 100%;
+    /*max-width: 400px;*/
+    width:100%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -35,7 +34,6 @@ input[type="email"], input[type="password"], input[type="password"], input[type=
 form {
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
 }
 
@@ -54,6 +52,7 @@ form {
 .btn, a:link, a:visited {
     border: none;
     color: white;
+    /*padding: 20px;*/
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -82,7 +81,6 @@ form {
     text-decoration: none;
     padding: 8px 0px;
 }
-
 .sbs {
     display: flex;
     flex-direction: row;
