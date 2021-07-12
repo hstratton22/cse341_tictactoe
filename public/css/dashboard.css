@@ -13,6 +13,7 @@
   border-radius: 0px;
   border: 2px solid black;
 }
+
 a.btn-dash {
   padding-top: 10px;
 }
@@ -27,6 +28,10 @@ p {
 
 li {
   width: 50%;
+}
+
+h1 {
+  text-align: center;
 }
 
 .line-container {
@@ -65,9 +70,9 @@ input[type="submit"] {
 }
 
 
-@media only screen and (max-width: 940px) {
+@media only screen and (max-width: 1320px) {
   p {
-      font-size: 25px;
+      font-size: 20px;
   }
 
   h2 {
@@ -76,12 +81,24 @@ input[type="submit"] {
 
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 920px) {
   p {
-      font-size: 25px;
+      font-size: 18px;
   }
 
   h2 {
+    font-size: 30px;
+  }
+
+  a.btn-dash {
+    font-size: 23px;
+  }
+
+}
+
+@media only screen and (max-width: 750px) {
+
+  a.btn-dash {
     font-size: 30px;
   }
 
