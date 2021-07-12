@@ -17,14 +17,14 @@
                 <form action="/login" method="POST">
                     <div class="form-input-container">
                         <div>
-                            <label for="email">
+                            <label for="email">Email
                             <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
-                                type="email" name="email" id="email" value="<%= oldInput.email %>" placeholder="Email"></label>
+                                type="email" name="email" id="email" value="<%= oldInput.email %>" ></label>
                         </div>
                         <div>
-                            <label for="password">
+                            <label for="password">Password
                             <input class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>"
-                                type="password" name="password" id="password" placeholder="Password"></label>
+                                type="password" name="password" id="password" ></label>
                         </div>
                     </div>
 
