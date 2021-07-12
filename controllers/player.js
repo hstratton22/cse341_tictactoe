@@ -199,7 +199,7 @@ exports.postPlayerMove = (req, res, next) => {
         //     pageTitle: 'Play Game',
         //     path: '/playGame'
         // });
-        res.redirect('dashboard');
+        res.redirect('/dashboard');
     })
 
 }
