@@ -1,3 +1,4 @@
+"use strict"
 function checkBrowser() {
     // Get the user-agent string
     let userAgentString =

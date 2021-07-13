@@ -1,17 +1,17 @@
-var player1Turn = true; 
+var player1Turn = true;
 var play = true;
 var gameWinner;
 var game = {
-        "1": document.getElementById("1").innerHTML,
-        "2": document.getElementById("2").innerHTML,
-        "3": document.getElementById("3").innerHTML,
-        "4": document.getElementById("4").innerHTML,
-        "5": document.getElementById("5").innerHTML,
-        "6": document.getElementById("6").innerHTML,
-        "7": document.getElementById("7").innerHTML,
-        "8": document.getElementById("8").innerHTML,
-        "9": document.getElementById("9").innerHTML
-    };
+    "1": document.getElementById("1").innerHTML,
+    "2": document.getElementById("2").innerHTML,
+    "3": document.getElementById("3").innerHTML,
+    "4": document.getElementById("4").innerHTML,
+    "5": document.getElementById("5").innerHTML,
+    "6": document.getElementById("6").innerHTML,
+    "7": document.getElementById("7").innerHTML,
+    "8": document.getElementById("8").innerHTML,
+    "9": document.getElementById("9").innerHTML
+};
 
 
 if (document.getElementById("game")) {
@@ -21,7 +21,7 @@ if (document.getElementById("game")) {
     const user = document.getElementById("user").innerText;
     const player1 = document.getElementById("player1").value;
     const player2 = document.getElementById("player2").value;
-    if (user == player1){
+    if (user == player1) {
         document.getElementById("playerNumber").innerHTML = "You are Player 1.";
         document.getElementById("playerSymbol").innerHTML = "Your symbol is: X";
     } else {
@@ -31,7 +31,7 @@ if (document.getElementById("game")) {
 
 
     function playerturn() {
-        if (this.innerHTML === ''){
+        if (this.innerHTML === '') {
             //console.log('hola mi amigo');
             //console.log(player1Turn);
             if (play) {
@@ -43,7 +43,7 @@ if (document.getElementById("game")) {
                     player1Turn = 'false';
                     checkwin();
                     sendJson();
-                } 
+                }
                 if (player2 == user && player1Turn == 'false') {
                     this.innerHTML = 'O';
                     game[this.id] = this.innerHTML;
@@ -53,12 +53,12 @@ if (document.getElementById("game")) {
                     sendJson();
                 }
             }
-        }        
+        }
     }
 } else { // this section is for anyone not logged in to play against others
 
     function playerturn() {
-        if (this.innerHTML == ''){
+        if (this.innerHTML == '') {
             if (play) {
                 if (player1Turn) {
                     this.innerHTML = 'X';
@@ -85,37 +85,37 @@ function checkwin() {
     // check vert
     let i = 0;
     for (i = 0; i < 3; i++) {
-        if (grid[i].innerHTML != ''){
-            if (grid[i].innerHTML === grid[i+3].innerHTML && grid[i+3].innerHTML === grid[i+6].innerHTML){
-                checkWinner(i, i, i+3, i+6);
+        if (grid[i].innerHTML != '') {
+            if (grid[i].innerHTML === grid[i + 3].innerHTML && grid[i + 3].innerHTML === grid[i + 6].innerHTML) {
+                checkWinner(i, i, i + 3, i + 6);
             }
         }
     }
     // check horizontal
     for (i = 0; i < 7; i += 3) {
-        if (grid[i].innerHTML != ''){
-            if (grid[i].innerHTML === grid[i+1].innerHTML && grid[i+1].innerHTML === grid[i+2].innerHTML) {
-                checkWinner(i, i, i+1, i+2);
+        if (grid[i].innerHTML != '') {
+            if (grid[i].innerHTML === grid[i + 1].innerHTML && grid[i + 1].innerHTML === grid[i + 2].innerHTML) {
+                checkWinner(i, i, i + 1, i + 2);
             }
         }
     }
     // diagonal down
-    if (grid[0].innerHTML != ''){
+    if (grid[0].innerHTML != '') {
         if (grid[0].innerHTML == grid[4].innerHTML && grid[4].innerHTML == grid[8].innerHTML) {
             checkWinner(0, 0, 4, 8);
         }
     }
     // diagonal up
-    if (grid[2].innerHTML != ''){
+    if (grid[2].innerHTML != '') {
         if (grid[2].innerHTML == grid[4].innerHTML && grid[4].innerHTML == grid[6].innerHTML) {
             checkWinner(2, 2, 4, 6);
         }
     }
     // tie game
-    
+
     if (grid[0].innerText != '' && grid[1].innerText != '' && grid[2].innerText != '' && grid[3].innerText != ''
-    && grid[4].innerText != '' && grid[5].innerText != '' && grid[6].innerText != '' && grid[7].innerText != ''
-    && grid[8].innerText != '' && play){
+        && grid[4].innerText != '' && grid[5].innerText != '' && grid[6].innerText != '' && grid[7].innerText != ''
+        && grid[8].innerText != '' && play) {
         document.getElementById("title").innerText = "Tie Game!";
         document.querySelectorAll('#myTable td').forEach(e => e.classList.add("winner"));
         gameWinner = 'tie';
@@ -124,8 +124,8 @@ function checkwin() {
         // },5000);
         play = false;
     }
-    
-   
+
+
     ////////////////////////////////////////////////////
     // NEED TO RESTRUCTURE AWAY FROM CLICK COUNT AND INSTEAD WORK WITH THE 
     // OBJECT VALUES TO SEE IF ALL OF THEM ARE FULL AND IF THEY ARE THEN THE
@@ -133,8 +133,8 @@ function checkwin() {
     ////////////////////////////////////////////////////
 }
 
-function checkWinner(input, a, b, c){
-    if (grid[input].innerHTML === 'X'){
+function checkWinner(input, a, b, c) {
+    if (grid[input].innerHTML === 'X') {
         document.getElementById("title").innerText = "Player 1 Wins!";
         gameWinner = "player1";
         background(a, b, c)
@@ -154,7 +154,7 @@ function checkWinner(input, a, b, c){
 }
 
 //changes the background color when the game is over
-function background(a, b, c){
+function background(a, b, c) {
     grid[a].classList.add("winner");
     grid[b].classList.add("winner");
     grid[c].classList.add("winner");
@@ -183,12 +183,12 @@ function sendJson() {
 }
 
 
-    document.getElementById("1").addEventListener("click", playerturn);
-    document.getElementById("2").addEventListener("click", playerturn);
-    document.getElementById("3").addEventListener("click", playerturn);
-    document.getElementById("4").addEventListener("click", playerturn);
-    document.getElementById("5").addEventListener("click", playerturn);
-    document.getElementById("6").addEventListener("click", playerturn);
-    document.getElementById("7").addEventListener("click", playerturn);
-    document.getElementById("8").addEventListener("click", playerturn);
-    document.getElementById("9").addEventListener("click", playerturn);
+document.getElementById("1").addEventListener("click", playerturn);
+document.getElementById("2").addEventListener("click", playerturn);
+document.getElementById("3").addEventListener("click", playerturn);
+document.getElementById("4").addEventListener("click", playerturn);
+document.getElementById("5").addEventListener("click", playerturn);
+document.getElementById("6").addEventListener("click", playerturn);
+document.getElementById("7").addEventListener("click", playerturn);
+document.getElementById("8").addEventListener("click", playerturn);
+document.getElementById("9").addEventListener("click", playerturn);
