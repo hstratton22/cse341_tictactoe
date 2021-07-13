@@ -11,7 +11,7 @@
         <div class="" style="height: 400px;">
           <!--main-form-->
           <div class="form-header">
-            <h2 class="form-title">Edit Profile</h2>
+            <h2 class="form-title">Change username</h2>
           </div>
           <% if (errorMessage) { %>
             <div class="user-message user-message--error">
@@ -20,11 +20,10 @@
             <% } %>
 
               <form action="/updateProfile" method="POST">
-                <div class="centered">
-                  <div class="">
-                    <label for="name"></label>
+                <div class="">
+                  <div ><label>Username
                     <input class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %>" type="text"
-                      name="name" id="name" value="<%= oldInput.name %>" placeholder=" New Username">
+                      name="name" id="name" value="<%= oldInput.name %>" ></label>
                   </div>
                 </div>
                 <!--<div class="form-btn-container">-->

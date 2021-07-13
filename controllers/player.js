@@ -153,9 +153,9 @@ exports.postPlayerMove = (req, res, next) => {
         gameWinner: req.body.gameWinner,
         gameGrid: req.body.gameGrid
     };
-    //console.log(typeof gameDetails.clickCount);
+    console.log(typeof gameDetails.clickCount);
 
-    //console.log(gameDetails.clickCount);
+    console.log(gameDetails.clickCount);
 
     GamePlay.findByIdAndUpdate(
         { _id: gameDetails._id },
@@ -176,8 +176,8 @@ exports.postPlayerMove = (req, res, next) => {
             }
         }
     ).then(result => {
-        //console.log('move result');
-        //console.log(result);
+        console.log('move result');
+        console.log(result);
         if (result) {
             gameDetails.gameGrid = JSON.parse(result.gameGrid);
         } else {

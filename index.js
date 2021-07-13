@@ -28,7 +28,10 @@ const csrfProtection = csrf();
 const cors = require('cors');
 const corsOptions = {
   origin: "https://tictactoe-cse341.herokuapp.com/",
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
+  // allowMethods: ['GET, POST'],
+  // allowHeaders: ['Content-Type, Authorization'],
+  // allowOrigin: '*'
 };
 
 app.set('view engine', 'ejs');
@@ -47,7 +50,8 @@ const options = {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
-  family: 4
+  family: 4,
+
 };
 
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -1,7 +1,7 @@
-let player1Turn = true; 
-let play = true;
-let gameWinner;
-let game = {
+var player1Turn = true; 
+var play = true;
+var gameWinner;
+var game = {
         "1": document.getElementById("1").innerHTML,
         "2": document.getElementById("2").innerHTML,
         "3": document.getElementById("3").innerHTML,
@@ -32,14 +32,14 @@ if (document.getElementById("game")) {
 
     function playerturn() {
         if (this.innerHTML === ''){
-            //console.log('hola mi amigo');
-            //console.log(player1Turn);
+            console.log('hola mi amigo');
+            console.log(player1Turn);
             if (play) {
                 if (player1Turn == 'true' && player1 == user) {
-                    //console.log(game);
+                    console.log(game);
                     this.innerHTML = 'X';
                     game[this.id] = this.innerHTML;
-                    //console.log(game);
+                    console.log(game);
                     player1Turn = 'false';
                     checkwin();
                     sendJson();
@@ -47,7 +47,7 @@ if (document.getElementById("game")) {
                 if (player2 == user && player1Turn == 'false') {
                     this.innerHTML = 'O';
                     game[this.id] = this.innerHTML;
-                    //console.log(game);
+                    console.log(game);
                     player1Turn = 'true';
                     checkwin();
                     sendJson();
@@ -63,13 +63,13 @@ if (document.getElementById("game")) {
                 if (player1Turn) {
                     this.innerHTML = 'X';
                     game[this.id] = this.innerHTML;
-                    //console.log(game);
+                    console.log(game);
                     player1Turn = false;
                 }
                 else {
                     this.innerHTML = 'O';
                     game[this.id] = this.innerHTML;
-                    //console.log(game);
+                    console.log(game);
                     player1Turn = true;
                 }
             }
@@ -80,7 +80,7 @@ if (document.getElementById("game")) {
 
 function checkwin() {
     grid = document.querySelectorAll('#myTable td');
-    //console.log(grid);
+    console.log(grid);
 
     // check vert
     let i = 0;
@@ -112,19 +112,16 @@ function checkwin() {
         }
     }
     // tie game
-    // if (clickCount == 9 && play == true) {
-    //     document.getElementById("title").innerText = "Tie Game!";
-    //     document.querySelectorAll('#myTable td').forEach(e => e.classList.add("winner"));
-    //     gameWinner = "tie";
-    //     play = false;
-    // }
-
+    
     if (grid[0].innerText != '' && grid[1].innerText != '' && grid[2].innerText != '' && grid[3].innerText != ''
     && grid[4].innerText != '' && grid[5].innerText != '' && grid[6].innerText != '' && grid[7].innerText != ''
     && grid[8].innerText != '' && play){
         document.getElementById("title").innerText = "Tie Game!";
         document.querySelectorAll('#myTable td').forEach(e => e.classList.add("winner"));
         gameWinner = 'tie';
+        // setTimeout(function(){
+        //     console.log("I am the third log after 5 seconds");
+        // },5000);
         play = false;
     }
     
@@ -141,11 +138,17 @@ function checkWinner(input, a, b, c){
         document.getElementById("title").innerText = "Player 1 Wins!";
         gameWinner = "player1";
         background(a, b, c)
+        // setTimeout(function(){
+        //     console.log("I am the third log after 5 seconds");
+        // },5000);
         play = false;
     } else {
         document.getElementById("title").innerText = "Player 2 Wins!";
         gameWinner = "player2";
         background(a, b, c)
+        // setTimeout(function(){
+        //     console.log("I am the third log after 5 seconds");
+        // },5000);
         play = false;
     }
 }
@@ -175,7 +178,8 @@ function sendJson() {
     document.getElementById("player1Turn").value = player1Turn;
     document.getElementById("gameWinner").value = gameWinner;
     document.getElementById("gameGrid").value = gameGrid;
-    document.getElementById("game").submit();
+    //document.getElementById("game").submit();
+    document.forms['game'].submit();
 }
 
 
