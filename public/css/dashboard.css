@@ -83,7 +83,7 @@ input[type="submit"] {
 
 @media only screen and (max-width: 920px) {
   p {
-      font-size: 18px;
+      font-size: 15px;
   }
 
   h2 {
@@ -92,6 +92,12 @@ input[type="submit"] {
 
   a.btn-dash {
     font-size: 23px;
+    width: 99%;
+  }
+
+  .btn-dash {
+    font-size: 23px;
+    padding-bottom: 20px;
   }
 
 }
@@ -101,6 +107,14 @@ input[type="submit"] {
   a.btn-dash {
     font-size: 30px;
   }
+
+  .btn-dash {
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 23px;
+}
 
 }
 

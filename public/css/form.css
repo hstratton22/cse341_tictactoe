@@ -131,6 +131,10 @@ form {
         width: 100%;
     }
 
+    label {
+        width: 100%;
+    }
+
     .sbs {
         flex-direction: column;
         align-items: center;
