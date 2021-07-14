@@ -10,11 +10,12 @@
 
         <% if (weather != null) { %>
         <div class="flex-item">
-          
-          <p><%= weather.current.temp %>&deg; 
+          <div class="weatherStack">
+          <p><%= weather.current.temp %>&deg; </p>
             <img src="https://openweathermap.org/img/w/<%= weather.current.weather[0].icon %>.png" alt="weather icon">
             <!-- : <%= weather.current.weather[0].description %> -->
-          </p>
+          
+        </div>
         </div>
         <% } %>
         <% 
@@ -37,7 +38,7 @@
             <% ties += 1 %>
           <% } %>
         <% } %>
-        <div class="flex-item">
+        <div class="flex-item centerSmall">
           
           <p>
             W: <%= wins %> -
