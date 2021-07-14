@@ -74,6 +74,7 @@ form {
     padding: 10px;
 }
 
+
 .btn-signup, .cancel-btn, a:link, a:visited {
     background-color: #51E0FF;
     color: black;
@@ -85,7 +86,8 @@ form {
     display: flex;
     flex-direction: row;
     text-align: center;
-  }
+    
+      }
 
 .ttt .no-border {
     border: none;
@@ -129,6 +131,9 @@ form {
 
     .btn-login, .save-btn {
         width: 100%;
+    }
+    .btn-login {
+        margin:4px auto;
     }
 
     label {

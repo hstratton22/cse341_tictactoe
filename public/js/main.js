@@ -16,8 +16,8 @@ function checkBrowser() {
     if ((chromeAgent) && (safariAgent)) {
         safariAgent = false;
         //console.log("safariAgent", safariAgent);
-        
-        
+
+
     }
     allPlay(safariAgent);
     //return safariAgent;
@@ -37,10 +37,4 @@ function allPlay(safariAgent) {
         y.classList.add("hide");
     }
 
-    // if (x.style.display === "none") {
-    //   x.style.display = "block";
-    // } else {
-    //   x.style.display = "none";
-    // }
 }
-// allPlay();

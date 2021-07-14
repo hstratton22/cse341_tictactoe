@@ -125,13 +125,7 @@ function checkwin() {
         play = false;
     }
 
-
-    ////////////////////////////////////////////////////
-    // NEED TO RESTRUCTURE AWAY FROM CLICK COUNT AND INSTEAD WORK WITH THE 
-    // OBJECT VALUES TO SEE IF ALL OF THEM ARE FULL AND IF THEY ARE THEN THE
-    // PLAY VARIABLE IS CHANGED TO FALSE
-    ////////////////////////////////////////////////////
-}
+ }
 
 function checkWinner(input, a, b, c) {
     if (grid[input].innerHTML === 'X') {
